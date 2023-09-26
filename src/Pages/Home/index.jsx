@@ -47,7 +47,7 @@ const Home = () => {
     
     <div className="row">
       {CardItems.map((item, index) => (
-        <div key={index} className="col-lg-4 col-md-4 col-sm-6" style={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
+        <div key={index} className="col-lg-4 col-md-4 col-sm-6" style={{display:"flex", flexDirection:"row", justifyContent:"space-center"}}>
           {/* Map each menu item to a MenuItem component */}
             <CardForHome
             description={item.description}

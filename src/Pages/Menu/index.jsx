@@ -2,7 +2,7 @@ import React from "react";
 import MenuItem from "../../Components/card"; // Import your MenuItem component
 import ShoppingCart from "../../Components/shoppingcart";
 
-const MainMenu = () => {
+const index = () => {
   // Define an array of menu items
   const menuItems = [
     {
@@ -74,4 +74,4 @@ const MainMenu = () => {
   );
 };
 
-export default MainMenu;
+export default index;
