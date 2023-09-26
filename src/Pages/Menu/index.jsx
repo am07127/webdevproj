@@ -1,6 +1,6 @@
 import React from "react";
-import MenuItem from "../Components/card"; // Import your MenuItem component
-import ShoppingCart from "../Components/shoppingcart";
+import MenuItem from "../../Components/card"; // Import your MenuItem component
+import ShoppingCart from "../../Components/shoppingcart";
 
 const MainMenu = () => {
   // Define an array of menu items

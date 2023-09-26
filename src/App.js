@@ -1,15 +1,15 @@
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import Home from './Pages/Home';
-import Menupage from './Pages/Menupage';
+import Menu from './Pages/Menu';
 
 
 function App() {
   return (
     <>
     <Navbar/>
-    {/* <Home/> */}
-    <Menupage/>
+    <Home/>
+    {/* <Menu/> */}
     <Footer/>
     </>
   );
