@@ -1,22 +1,27 @@
 // src/components/ShoppingCart.js
-import React, { useState } from 'react';
-
-const defaultItems = [
-  { id: 1, name: 'Product 1', price: 10 },
-  { id: 2, name: 'Product 2', price: 20 },
-  { id: 3, name: 'Product 3', price: 30 },
-    { id: 4, name: 'Product 4', price: 40 },
-    { id: 5, name: 'Product 5', price: 50 },
-    { id: 6, name: 'Product 6', price: 60 },
-    { id: 7, name: 'Product 7', price: 70 }
-];
+import React from 'react';
+import { useSelector,useDispatch } from 'react-redux'
+import { actionCreators } from '../state';
+import { Link } from 'react-router-dom';
 
 const ShoppingCart = () => {
-  const [cartItems, setCartItems] = useState(defaultItems);
-
+  const cartItems = useSelector(state => state.items);
+  const dispatch = useDispatch()
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0);
+    let total = 0;
+    cartItems.forEach(item => {
+      total += item.price*item.quantity;
+    });
+    return total.toFixed(2);
   };
+
+  const handleRemove = (item) => {
+    dispatch(actionCreators.removeitem(item));
+  }
+
+  
+
+  
 
   return (
     <div className="container mt-4">
@@ -24,29 +29,35 @@ const ShoppingCart = () => {
         <div className="card-header bg-dark text-light">
           <h1 className="mb-0">Shopping Cart</h1>
         </div>
-        <div className="card-body">
+        <div className="card-body table-responsive">
           <table className="table">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {cartItems.map((item) => (
-                <tr key={item.id}>
+                <tr>
                   <td>{item.name}</td>
-                  <td>${item.price.toFixed(2)}</td>
+                  <td>${item.price}</td>
+                  <td>{item.quantity}</td>
+                  <td>
+                  <button type="button" class="btn btn-warning" onClick={()=>handleRemove(item)}>-</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
           <div className="text-right">
-            <strong>Total Price: ${getTotalPrice().toFixed(2)}</strong>
+            <strong>Total Price: ${getTotalPrice()}</strong>
           </div>
         </div>
         <div className="card-footer text-right">
-          <button className="btn btn-dark">Checkout</button>
+          <Link to="/contactus"><button className="btn btn-dark">Checkout</button></Link>
         </div>
       </div>
     </div>

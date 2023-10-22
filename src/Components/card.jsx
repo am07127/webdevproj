@@ -1,10 +1,22 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { actionCreators } from '../state';
 
 const MenuItem = (props) => {
-  let { name, description, price, imageUrl } = props;
-  const handleAddToCart = (name, price) => {
-    console.log(`Added ${name} to cart. Price: ${price}`);
+  const {item} = props;
+
+  const {name, description, price, imageUrl} = item;
+  const dispatch = useDispatch()
+  const existingItem = useSelector(state => state.items.find(i => i.name === item.name));
+  const handleAddToCart = () => {
+        if(existingItem){
+            dispatch(actionCreators.updateitem(existingItem));
+    
+        }else{
+          dispatch(actionCreators.additem(item));
+        }
   }
+  
   return (
     <div className="my-3">
       <div className="card">
@@ -19,7 +31,7 @@ const MenuItem = (props) => {
           <p className="card-text">
             <strong>Price: ${price}</strong>
           </p>
-          <button className="btn btn-success" onClick={() => handleAddToCart(name, price)}>
+          <button className="btn btn-success" onClick={() => handleAddToCart()}>
             Add to Cart
           </button>
         </div>
