@@ -2,7 +2,7 @@ import React from 'react'
 
 const index = () => {
   return (
-    <div>
+    <div style={{height: 'calc(100vh - 122px)'}}>
       <br/>
       <h4>
       We strive to bring the best experience of online ordering and delivery to our customers. If you are looking for best online deals with home delivery across the city then look no further, order now your favorite food enjoy your day.

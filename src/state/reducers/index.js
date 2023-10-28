@@ -1,6 +1,14 @@
-// import { combineReducers } from "redux";
-// import itemreducer from "./itemreducer";
+// import { createStore, combineReducers } from 'redux';
+// import itemreducer from './itemreducer';
+// import adminReducer from './admin';
 
-// export default combineReducers({
-//     items: itemreducer  
-//   });
+// // Combine your reducers
+// const rootReducer = combineReducers({
+//   items: itemreducer,
+//   admin: adminReducer,
+// });
+
+// // Create the Redux store
+// const store = createStore(rootReducer);
+
+// export default store;

@@ -1,37 +1,97 @@
-import React from "react";
-import Orderitem from "../../Components/orderitem";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Adminportal() {
+function App() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [user, setUser] = useState(null);
   const host = "http://localhost:3000";
-  const [orders, setOrders] = useState([]);
 
-  const getorders = async () => {
+  const handleRegister = async () => {
     try {
-      // API Call
-      const response = await fetch(`${host}/api/orders/getorder`, {
-        method: "GET",
+      const response = await fetch(`${host}/api/admin/register`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
-      setOrders(data);
-    }catch(error){
-      console.error("Error:", error.message);
+      setMessage(data.message);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+  const navigate = useNavigate();
+  
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(`${host}/api/admin/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessage(data.message); // Display a success message
+        localStorage.setItem('adminData', JSON.stringify(data.user));
+  navigate('/admin');
+      } else {
+        const errorData = await response.json();
+        setMessage(`Error: ${response.status} - ${errorData.message}`); // Display an error message
+      }
+    } catch (error) {
+      setMessage(`Network Error: ${error.message}`); // Handle network errors
     }
   };
 
+
+
   return (
-    <>
-      <div className="Container" style={{paddingBottom:"20px"}}>
-        <button onClick={getorders}>Get Orders</button>
-      </div>
-      {orders.length>0 && (<div className="row my-3 mx-2" style={{paddingBottom:"200px"}}>
-        {orders.map((order) => {
-          return <Orderitem key={order._id} order={order} />;
-        })}
-      </div>)}
-    </>
+    <div style={{display:'flex',flexDirection:'column',padding:'20px', height: 'calc(100vh - 122px)'}}>
+      {user ? (
+        <div>
+          <p>Welcome, {user.username}!</p>
+        </div>
+      ) : (
+        <div style={{display:'flex',
+        flexDirection:'column',
+        width:'30vw',alignSelf:'center'}}>
+          <h2 style={{textAlign:'center'}}>Login or Register</h2>
+          <input
+          style={{margin:'10px'}}
+            type="text"
+            placeholder="Username"
+            value={username}
+            // const copyUsername = {...username}
+            // const copyUsername = {e.target.value}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+          style={{margin:'10px'}}
+
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="button" class="btn btn-outline-warning"
+          style={{margin:'10px'}}
+          onClick={handleRegister}>Register</button>
+          <button type='button'  class="btn btn-outline-dark"
+          style={{margin:'10px'}}
+          onClick={handleLogin}>Login</button>
+      {message && <p style={{margin:'10px'}}>{message}</p>}
+
+        </div>
+      )}
+    </div>
   );
 }
+
+export default App;

@@ -6,6 +6,7 @@ import Menu from './Pages/Menu';
 import FAQs from './Pages/FAQs';
 import Contactus from './Pages/ContactUS';
 import Adminportal from './Pages/Adminportal';
+import AdminPage from './Pages/AdminPage';
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
         <Route exact path="/faqs" element={<FAQs/>}/>
         <Route exact path="/contactus" element={<Contactus/>}/>
         <Route exact path="/adminportal" element={<Adminportal/>}/>
+        <Route exact path="/admin" element={<AdminPage/>}/>
+
       </Routes>
       <Footer/>
     </Router>
