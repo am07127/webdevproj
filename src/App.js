@@ -7,10 +7,12 @@ import FAQs from './Pages/FAQs';
 import Contactus from './Pages/ContactUS';
 import Adminportal from './Pages/Adminportal';
 import AdminPage from './Pages/AdminPage';
+import FoodState from './foodcontext/FoodState';
 
 
 function App() {
   return (
+    <FoodState>
     <Router>
       <Navbar/>
       <Routes>
@@ -24,6 +26,7 @@ function App() {
       </Routes>
       <Footer/>
     </Router>
+    </FoodState>
   );
 }
 

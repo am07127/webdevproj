@@ -234,7 +234,7 @@ const styles = {
 };
 
 function Contactus() {
-  const [formdata, setFormdata] = useState({ address: "", phone: "" });
+  const [formdata, setFormdata] = useState({ address: "", phone: "", email: "" });
   const [showAlert, setShowAlert] = useState(false);
 
   const host = "http://localhost:3000";
@@ -247,7 +247,7 @@ function Contactus() {
     });
   };
 
-  const { address, phone } = formdata;
+  const { address, phone, email  } = formdata;
   const cartItems = useSelector((state) => state.items);
 
   const putorder = async (address, phone, total = 0) => {
@@ -258,7 +258,7 @@ function Contactus() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ address, phone, total, cartItems }),
+        body: JSON.stringify({ address, phone, total, cartItems, email}),
       });
 
       if (response.ok) {
@@ -318,14 +318,16 @@ function Contactus() {
                 />
               </div>
               <div style={styles.item}>
-                <label style={styles.label} htmlFor="address">
+                <label style={styles.label} htmlFor="emailaddress">
                   Email Address<span>*</span>
                 </label>
                 <input
-                  id="address"
+                  id="emailaddress"
                   type="text"
-                  name="address"
+                  name="email"
                   style={styles.input}
+                  value={formdata.email}
+                  onChange={handleInputChange}
                 />
               </div>
               <div style={styles.item}>
