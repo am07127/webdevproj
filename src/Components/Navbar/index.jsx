@@ -7,9 +7,14 @@ import foodContext from "../../foodcontext/foodContext";
 
 const Navbar = () => {
   const cartItems = useSelector((state) => state.items);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const  context  = useContext(foodContext);
+  const context = useContext(foodContext);
   const { setFood } = context;
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   const style = {
     button1: {
@@ -41,12 +46,12 @@ const Navbar = () => {
   const handlechicken = () => {
     console.log("chicken");
     setFood(1);
-  }
+  };
 
   const handlebbq = () => {
     console.log("bbq");
     setFood(2);
-  }
+  };
 
   const handleCartButtonClick = () => {
     console.log("Cart button clicked");
@@ -86,24 +91,20 @@ const Navbar = () => {
             </Link>
           </li>
 
-          <li className="nav-item dropdown active">
-            <Link
-              className="nav-link dropdown-toggle"
-              to="/menu"
-              id="navbarDropdown"
-              style={{ color: "white" }}
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+          <li className="nav-item dropdown">
+            <Link className="nav-link dropdown-toggle" onClick={toggleMenu} to='/menu' style={{color:"white"}}>
               Menu
             </Link>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <button onClick={handlechicken}>
+
+            <div className={`dropdown-menu ${isOpen ? "show" : ""}`}>
+              <button
+                className="dropdown-item"
+                onClick={()=>handlechicken()}
+              >
                 Chicken
               </button>
-              <button onClick={handlebbq}>
+
+              <button className="dropdown-item" onClick={()=>handlebbq()}>
                 Barbecue
               </button>
             </div>

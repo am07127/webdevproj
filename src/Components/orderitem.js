@@ -1,6 +1,6 @@
 import React from "react";
 
-const OrderItem = ({ order }) => {
+const OrderItem = ({ order, updateorder }) => {
   const { _id, address, phone, items } = order;
   const host = "http://localhost:3000";
   const deleteorder = async () => {
@@ -33,6 +33,7 @@ const OrderItem = ({ order }) => {
         ))}
       </div>
       <button type="button" class="btn btn-danger" onClick={()=>deleteorder()}>Remove Order</button>
+      <button type="button" class="btn btn-primary" onClick={()=>{updateorder(order)}}>Update Order</button>
     </div>
   );
 };
