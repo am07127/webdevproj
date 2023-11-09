@@ -234,8 +234,12 @@ const styles = {
 };
 
 function Contactus() {
-  const [formdata, setFormdata] = useState({ address: "", phone: "", email: "" });
-  const [showAlert, setShowAlert] = useState(false);
+  const [formdata, setFormdata] = useState({
+    address: "",
+    phone: "",
+    email: "",
+  });
+  //const [showAlert, setShowAlert] = useState(false);
 
   const host = "http://localhost:3000";
 
@@ -247,7 +251,7 @@ function Contactus() {
     });
   };
 
-  const { address, phone, email  } = formdata;
+  const { address, phone, email, location } = formdata;
   const cartItems = useSelector((state) => state.items);
 
   const putorder = async (address, phone, total = 0) => {
@@ -258,12 +262,19 @@ function Contactus() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ address, phone, total, cartItems, email}),
+        body: JSON.stringify({
+          address,
+          phone,
+          total,
+          cartItems,
+          email,
+          location,
+        }),
       });
 
       if (response.ok) {
         // If the response is successful (status code 2xx), show the alert
-        setShowAlert(true);
+        alert("Order placed successfully");
       } else {
         // Handle errors if the response is not successful
         console.error("Error sending order details:", response.statusText);
@@ -277,20 +288,6 @@ function Contactus() {
   return (
     <>
       <div style={styles.testbox1}>
-        <div>
-          {showAlert && (
-            <div className="alert alert-primary" role="alert">
-              Order Placed Successfully!
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-                onClick={() => setShowAlert(false)}
-              ></button>
-            </div>
-          )}
-        </div>
         <form style={styles.formContainer}>
           <fieldset style={styles.field1}>
             <legend style={styles.legend}>Contact Information</legend>
@@ -369,14 +366,16 @@ function Contactus() {
                 <input id="zip" type="text" name="zip" style={styles.input} />
               </div>
               <div style={styles.item}>
-                <label style={styles.label} htmlFor="country">
-                  Country
+                <label style={styles.label} htmlFor="location">
+                  Google Map Location
                 </label>
                 <input
-                  id="country"
+                  id="location"
                   type="text"
-                  name="text"
+                  name="location"
                   style={styles.input}
+                  value={formdata.location}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>

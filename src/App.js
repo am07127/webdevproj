@@ -8,6 +8,7 @@ import Contactus from './Pages/ContactUS';
 import Adminportal from './Pages/Adminportal';
 import AdminPage from './Pages/AdminPage';
 import FoodState from './foodcontext/FoodState';
+import AddressForm from './Components/newcontactus';
 
 
 
@@ -23,7 +24,7 @@ function App() {
         <Route exact path="/contactus" element={<Contactus/>}/>
         <Route exact path="/adminportal" element={<Adminportal/>}/>
         <Route exact path="/admin" element={<AdminPage/>}/>
-
+        <Route exact path="/newcontact" element={<AddressForm/>}/>
       </Routes>
       <Footer/>
     </Router>

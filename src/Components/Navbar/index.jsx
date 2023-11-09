@@ -120,7 +120,7 @@ const Navbar = () => {
             <Link
               className="nav-link"
               style={{ color: "white" }}
-              to="/contactus"
+              to="/newcontact"
             >
               Contact Us
             </Link>
